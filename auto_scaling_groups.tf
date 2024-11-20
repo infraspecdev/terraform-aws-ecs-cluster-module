@@ -15,9 +15,10 @@ resource "aws_launch_configuration" "ecs_launch_config" {
     }
   }
   security_groups = each.value.security_group_ids
-  metadata_options = each.value.metadata_options
-  lifecycle {
-    create_before_destroy = true
+  metadata_options {
+    http_endpoint               = each.value.metadata_options.http_endpoint
+    http_put_response_hop_limit = each.value.metadata_options.http_put_response_hop_limit
+    http_tokens                 = each.value.metadata_options.http_tokens
   }
 }
 
